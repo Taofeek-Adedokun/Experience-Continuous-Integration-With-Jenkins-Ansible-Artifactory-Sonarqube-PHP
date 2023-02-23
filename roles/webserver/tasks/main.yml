@@ -16,13 +16,13 @@
 - name: clone a repo
   become: true
   ansible.builtin.git:
-    repo: https://github.com/<your-name>/tooling.git
+    repo: https://github.com/Babanla08/tooling.git
     dest: /var/www/html
     force: yes
 
 - name: copy html content to one level up
   become: true
-  command: cp -r /var/www/html/html/ /var/www/
+  command: cp -r /var/www/html/html /var/www/
 
 - name: Start service httpd, if not started
   become: true
