@@ -21,7 +21,7 @@
     stage(deploy) {
         steps {
             script {
-                sh 'echo "Deploy App"'
+                sh 'echo "Deploy to Dev"'
             }
         }
     }
