@@ -3,9 +3,9 @@
 
   stages {
     stage ("initial cleanup"){
-        steps {
-            dir("${WORKSPACE}") {
-                deleteDir()
+      steps {
+        dir("${WORKSPACE}") {
+          deleteDir()
             }
         }
     }
@@ -26,24 +26,24 @@
     }
 
     stage('Package'){
-        steps {
-            script {
-                sh 'echo "Package App"'
+      steps {
+        script {
+          sh 'echo "Package App"'
             }
         }
     }
 
     stage ('Deploy'){
-        steps {
-            script {
-                sh 'Deploying to Dev'
+      steps {
+        script {
+          sh 'Deploying to Dev'
             }
         }
     }
 
     stage("clean Up"){
-        steps {
-            cleanupWs()
+       steps {
+        cleanupWs()
         }
     }
     }
