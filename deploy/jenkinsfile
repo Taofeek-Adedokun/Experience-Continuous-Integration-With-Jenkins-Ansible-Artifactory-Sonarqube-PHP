@@ -41,7 +41,7 @@
         }
     }
 
-    stage('clean Up') {
+    stage("clean Up") {
         steps {
             cleanupWs()
         }
