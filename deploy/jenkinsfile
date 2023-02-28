@@ -25,5 +25,13 @@
             }
         }
     }
+
+    stage('Package') {
+      steps {
+        script {
+          sh 'echo "Package App"'
+        }
+      }
+    }
     }
 }
