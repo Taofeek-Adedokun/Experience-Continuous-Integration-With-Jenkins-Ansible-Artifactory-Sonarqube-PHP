@@ -2,9 +2,9 @@
     agent any
 
   stages {
-    stage('Initial cleanup') {
+    stage("Initial cleanup") {
       steps {
-        dir('${WORKSPACE}') {
+        dir("${WORKSPACE}") {
           deleteDir()
         }
       }
