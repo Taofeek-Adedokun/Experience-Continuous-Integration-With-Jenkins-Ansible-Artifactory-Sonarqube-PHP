@@ -1,6 +1,6 @@
 ---
-- name: update , nginx and db servers
-  hosts: nginx, nfs, db
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
   remote_user: ubuntu
   become: yes
   become_user: root
@@ -24,3 +24,5 @@
       apt:
         name: wireshark
         state: latest
+
+      
