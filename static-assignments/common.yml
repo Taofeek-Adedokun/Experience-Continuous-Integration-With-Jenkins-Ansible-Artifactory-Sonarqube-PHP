@@ -1,7 +1,7 @@
 ---
-- name: update web, nfs and db servers
-  hosts: webservers, nfs, db
-  remote_user: ec2-user
+- name: update , nginx and db servers
+  hosts: nginx, nfs, db
+  remote_user: ubuntu
   become: yes
   become_user: root
   tasks:
