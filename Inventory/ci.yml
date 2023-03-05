@@ -1,0 +1,5 @@
+[tooling]
+<SIT-Tooling-Web-Server-Private-IP-Address>
+
+artifactory
+172.31.81.5 ansible_ssh_user='ec2-user' 
