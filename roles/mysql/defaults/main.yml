@@ -116,7 +116,7 @@ mysql_databases:
    - name:  homestead
      collation: utf8_general_ci
      encoding: utf8
-     replicate: 1 
+     replicate: 1
 
 # Users.
 mysql_users: 
@@ -131,7 +131,6 @@ mysql_users:
      password: sePret^i
      priv: '*.*:ALL,GRANT'
 
-mysql_disable_log_bin: false
 
 # Replication settings (replication is only enabled if master/user have values).
 mysql_server_id: "1"
