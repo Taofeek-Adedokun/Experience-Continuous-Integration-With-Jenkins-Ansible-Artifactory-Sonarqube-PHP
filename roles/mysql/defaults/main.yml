@@ -121,9 +121,9 @@ mysql_databases:
 # Users.
 #mysql_users: 
 # - name: webaccess
-#    host: 0.0.0.0
-#   password: secret
-#   priv: '*.*:ALL,GRANT'
+#  host: 0.0.0.0
+#  password: secret
+#  priv: '*.*:ALL,GRANT'
 
 mysql_users: 
   - name: homestead
