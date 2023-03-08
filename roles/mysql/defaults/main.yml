@@ -113,7 +113,7 @@ mysql_config_include_files: []
 #  replicate: 1 
 
 mysql_databases: 
- - name:  homestead
+ - name: homestead
    collation: utf8_general_ci
    encoding: utf8
    replicate: 1
