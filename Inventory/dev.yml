@@ -1,5 +1,5 @@
 [db]
-172.31.54.230 ansible_ssh_user='ubuntu' 
+172.31.59.216 ansible_ssh_user='ubuntu' 
 
 [nginx]
 172.31.49.83 ansible_ssh_user='ubuntu'
