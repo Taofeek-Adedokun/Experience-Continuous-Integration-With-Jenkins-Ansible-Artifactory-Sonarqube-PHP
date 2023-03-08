@@ -5,7 +5,7 @@
 
  - hosts: db
  - name: database assignment
-  import_playbook: ../static-assignments/database.yml
+   import_playbook: ../static-assignments/db.yml
 
  #- hosts: artifactory
  #- name: artifactory assignment
