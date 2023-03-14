@@ -16,7 +16,7 @@
 # import_playbook: ../static-assignments/deployment.yml
 
 
-- hosts: sonar
+- hosts: sonarqube
 - name: sonar assignment
  ansible.builtin.import_playbook: ../static-assignments/sonar.yml
 
