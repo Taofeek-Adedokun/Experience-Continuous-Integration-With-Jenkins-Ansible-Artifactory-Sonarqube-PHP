@@ -37,7 +37,7 @@
 
    
 
-- name: Create user sonarqube
+- name: Remove user sonarqube
   become_user: postgres
   community.postgresql.postgresql_user:
     db: sonarqube
