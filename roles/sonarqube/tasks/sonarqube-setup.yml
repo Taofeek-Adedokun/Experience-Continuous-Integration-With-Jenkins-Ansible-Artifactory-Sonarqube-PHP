@@ -34,6 +34,15 @@
     path: /opt/sonarqube-7.9.3.zip
     state: absent
 
+- name: Add user to run SonarQube
+  user:
+    name: sonar
+    comment: "user to run SonarQube"
+    home: /opt/sonarqube
+    group: sonar
+    createhome: true
+  when: not ansible_check_mode and not (lookup('passwd', 'sonar', 1) is defined)
+  
 - name: add user to run sonar
   ansible.builtin.shell: useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonar sonar 
 
