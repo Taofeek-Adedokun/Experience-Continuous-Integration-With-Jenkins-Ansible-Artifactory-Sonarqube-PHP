@@ -7,18 +7,18 @@
  #- name: database assignment
   # import_playbook: ../static-assignments/db.yml
 
- - hosts: artifactory
- - name: artifactory assignment
-   ansible.builtin.import_playbook: ../static-assignments/artifactory.yml
+ #- hosts: artifactory
+ #- name: artifactory assignment
+ #  ansible.builtin.import_playbook: ../static-assignments/artifactory.yml
 
 #- hosts: todo
 #- name: Deploy the todo application
 # import_playbook: ../static-assignments/deployment.yml
 
 
-#- hosts: sonar
-#- name: sonar assignment
-#  ansible.builtin.import_playbook: ../static-assignments/sonar.yml
+- hosts: sonar
+- name: sonar assignment
+  ansible.builtin.import_playbook: ../static-assignments/sonar.yml
 
 
 #- name: import common file
