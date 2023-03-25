@@ -10,25 +10,46 @@
 
 ## Create a new pipeline
 
+![blue-ocean](./images.png/blue%20ocean.PNG)
+
 ## Select GitHub
 
+![select-github](./images.png/select%20github.PNG)
 ## Connect Jenkins with GitHub
 
+![connect-j-github](./images.png/connect%20jenkins%20to%20github.PNG)
 ## Login to GitHub & Generate an Access Token
 
+![login-github](./images.png/login%20github.PNG)
 ## Copy Access Token
+
+![copy-accesstoken](./images.png/copy%20access%20token.PNG)
 
 ## Paste the token and connect
 
+![paste-token](./images.png/paste%20token.PNG)
 ## Create a new Pipeline
 
+![admin-png](./images.png/admin.PNG)
+
+- Let us create our Jenkinsfile Inside the Ansible project, create a new directory deploy and start a new file Jenkinsfile inside the directory.
+
+![create-jenkinsfile2](./images.png/create%20jenkins%20file%202.PNG)
+
+- Add the code snippet below to start building the Jenkinsfile gradually. This pipeline currently has just one stage called Build and the only thing we are doing is using the shell script module to echo Building Stage
+
+> pipeline { agent any
+stages { stage('Build') { steps { script { sh 'echo "Building Stage"' } } } } } 
 ## Now go back into the Ansible pipeline in Jenkins, and select configure
 
 ## Scroll down to Build Configuration section and specify the location of the Jenkinsfile at deploy/Jenkinsfile
 
+![jenkins-file-location](./images.png/jenkins%20file%20location.PNG)
 ## Back to the pipeline again, this time click "Build now"
 
 ## This will trigger a build and you will be able to see the effect of our basic Jenkinsfile configuration by going through the console output of the build.
+
+![Build](./images.png/build2.PNG)
 
 ## Notice that this pipeline is a multibranch one. This means, if there were more than one branch in GitHub, Jenkins would have scanned the repository to discover them all and we would have been able to trigger a build for each branch. 
 
@@ -44,9 +65,13 @@ stages { stage('Build') { steps { script { sh 'echo "Building Stage"' } } } stag
 
 ## To make your new branch show up in Jenkins, we need to tell Jenkins to scan the repository.
 
+![both branch](./images.png/both%20branch.PNG)
+
 ##  Refresh the page and both branches will start building automatically. You can go into Blue Ocean and see both branches there too
 
 ##  In Blue Ocean, you can now see how the Jenkinsfile has caused a new step in the pipeline launch build for the new branch.
+
+![blueocean-test](./images.png/blue%20ocean%20test%20stage.PNG)
 
 ## Create a pull request to merge the latest code into the main branch
 
@@ -57,10 +82,13 @@ stages { stage('Build') { steps { script { sh 'echo "Building Stage"' } } } stag
 2. deploy
 3. clean up
 
+![package](./images.png/package.PNG)
+
 ## Verify in Blue Ocean that all the stages are working, then merge your feature branch to the main branch 
 
 ## Eventually, your main branch should have a successful pipeline like this in blue ocean
 
+![successful-pipe](./images.png/successful%20pipeline.PNG)
 ## RUNNING ANSIBLE PLAYBOOK FROM JENKINS
 
 ## Now that we have a broad overview of a typical Jenkins pipeline. Let us get the actual Ansible deployment to work by
@@ -77,6 +105,7 @@ stages { stage('Build') { steps { script { sh 'echo "Building Stage"' } } } stag
 
 ## copy the path to ansible ,use the command which ansible
 
+![configure-ansible](./images.png/configure%20ansible.PNG)
 ## Creating Jenkinsfile from scratch. (Delete all you currently have in there and start all over to get Ansible to run successfully)
 
 ## Possible errors to watch out for:
