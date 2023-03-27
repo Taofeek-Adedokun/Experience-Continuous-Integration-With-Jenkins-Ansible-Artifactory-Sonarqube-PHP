@@ -112,18 +112,36 @@ stages { stage('Build') { steps { script { sh 'echo "Building Stage"' } } } stag
 
 1. Ensure that the git module in Jenkinsfile is checking out SCM to main branch instead of master (GitHub has discontinued the use of Master due to Black Lives Matter. You can read more here)
 
+![SCM-MAIN](./images.png/SCM-MAIN.PNG)
+
 2. Jenkins needs to export the ANSIBLE_CONFIG environment variable. You can put the .ansible.cfg file alongside Jenkinsfile in the deploy directory. This way, anyone can easily identify that everything in there relates to deployment. Then, using the Pipeline Syntax tool in Ansible, generate the syntax to create environment variables to set.
+
+![ANSIBLE.CFG](./images.png/ANSIBLE.CFG)
 
 3. Update our role path on the jenkinsfile as thus:
 
-
+![Update-roles](./images.png/UPDATE-ROLES.PNG)
 ## We generate our steps for ansible playbook on our jenkins file using the pipeline syntax tool 
 
+![credentials](./images.png/manage%20credential.PNG)
+
+![paste-private](./images.png/paste-private.PNG)
+
+![paste-private](./images.png/paste-private.PNG)
 ## Generate pipeline script 
 
+![pipeline-script](./images.png/pipeline%20script.PNG)
 ## Now lets scan repository on our jenkins
 
+![scan-repo](./images.png/testii.PNG)
+
+![1st-build-success](./images.png/ansible%20build%20success1.PNG)
+
 ## Parameterizing Jenkinsfile For Ansible Deployment
+
+![inventory-variable](./images.png/inventory%20variable.PNG)
+
+![parameter](./images.png/parameters.PNG)
 
 ## To deploy to other environments, we will need to use parameters 
 
@@ -161,16 +179,22 @@ parameters { string(name: 'inventory', defaultValue: 'dev',  description: 'This 
 
 ## Run our ansible playbook from jenkins using the ci inventory on our build with parameters,using the artifactory roles 
 
+![build-artifactory](./images.png/build%20artifactory.PNG)
+
+
 ## In Jenkins UI configure Artifactory 
+
+![jenkins-ui](./images.png/jenkins%20ui.PNG)
+
 
 ## Configure the server ID, URL and Credentials, run Test Connection 
 
-## Phase 2 – Integrate Artifactory repository with Jenkins 
+![jenkins-jfrog](./images.png/jenkins%20jfrog.PNG)
 
-## Phase 2 – Integrate Artifactory repository with Jenkins 
-
+## Phase 2 – Integrate Artifactory repository with Jenkins
 ## Create a dummy Jenkinsfile in the repository
  
+ ![dummy-jenkins](./images.png/dummy%20jenkins.PNG)
 
 ## Using Blue Ocean, create a multibranch Jenkins pipeline
 
@@ -179,6 +203,8 @@ parameters { string(name: 'inventory', defaultValue: 'dev',  description: 'This 
 > Create database homestead; CREATE USER 'homestead'@'%' IDENTIFIED BY 'sePret^i'; GRANT ALL PRIVILEGES ON * . * TO 'homestead'@'%';
 
 ## Update the database connectivity requirements in the file .env.sample 
+
+![Env-file](./images.png/env%20file.PNG)
 
 ## Update Jenkinsfile with proper pipeline configuration
 
@@ -211,6 +237,8 @@ stage('Prepare Dependencies') {
 }
 } }
 
+![todo-pipeline](./images.png/pipeline%20todo.PNG)
+
 - Notice the Prepare Dependencies section
 
 The required file by PHP is .env so we are renaming .env.sample to .env
@@ -219,8 +247,11 @@ The required file by PHP is .env so we are renaming .env.sample to .env
 
 - php artisan uses the .env file to setup the required database objects – (After successful run of this step, login to the database, run show tables and you will see the tables being created for you) 
 
+![show-tables](./images.png/show%20tables.PNG)
+
 ## Update the Jenkinsfile to include Unit tests step stage('Execute Unit Tests') { steps { `sh './vendor/bin/phpunit' } }  
 
+![unit-test](./images.png/unit%20test.PNG)
 ## Phase 3 – Code Quality Analysis
 
 - For PHP the most commonly tool used for code quality analysis is phploc
@@ -265,6 +296,8 @@ The required file by PHP is .env so we are renaming .env.sample to .env
 
 - Re-run your phpunit test: Re-run your phpunit test and verify that the code coverage report is generated correctly.
 
+![plot-coverage](./images.png/plot%20coverage%20report.PNG)
+
 - Bundle the application code for into an artifact (archived package) upload to Artifactory
 
 > stage ('Package Artifact') { steps { sh 'zip -qr php-todo.zip ${WORKSPACE}/*' } }
@@ -288,6 +321,8 @@ The required file by PHP is .env so we are renaming .env.sample to .env
 
 > stage ('Deploy to Dev Environment') { steps { build job: 'ansible-project/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true } }
 
+![php-todopipe](./images.png/php%20todo%20pipeline.PNG)
+
 - The build job used in this step tells Jenkins to start another job. In this case it is the ansible-project job, and we are targeting the main branch. Hence, we have ansible-project/main. Since the Ansible project requires parameters to be passed in, we have included this by specifying the parameters section. The name of the parameter is env and its value is dev. Meaning, deploy to the Development environment.
 - Even though we have implemented Unit Tests and Code Coverage Analysis with phpunit and phploc, we still need to implement Quality Gate to ensure that ONLY code with the required code coverage, and other quality standards make it through to the environments.
 - To achieve this, we need to configure SonarQube – An open-source platform developed by SonarSource for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells, and security vulnerabilities.
@@ -298,11 +333,19 @@ Install SonarQube on Ubuntu 20.04 With PostgreSQL as Backend Database
 
 - We can automate our installation by creating an ansible role for sonarqube,or by downloading a role from the community as thus
 
+![install-sonar](./images.png/install%20sonar%20roles.PNG)
+
 - We will make some Linux Kernel configuration changes to ensure optimal performance of the tool we will increase vm.max_map_count, file
+
+![sonar-limit](./images.png/sonar%20limit.PNG)
 
 - Update our inventory file with private i.p of our sonarqube server in our ci environment
 
+![sonar-private](./images.png/sonar%20private%20ip.PNG)
+
 - Set our parameter in jenkins to ci then run ansible playbook in jenkins
+
+![sonar-playbook](./images.png/sonar%20playbook.PNG)
 
 ## Access SonarQube
 
@@ -314,10 +357,17 @@ Install SonarQube on Ubuntu 20.04 With PostgreSQL as Backend Database
 
 ## CONFIGURE SONARQUBE AND JENKINS FOR QUALITY GATE
 
+
+
 - In Jenkins, install SonarScanner plugin
 - Navigate to configure system in Jenkins. Add SonarQube server as shown below:
+
+![sonar-config](./images.png/sonar%20config.PNG)
+
 - Generate authentication token in SonarQube
 > User > My Account > Security > Generate Tokens
+
+![gen-auth](./images.png/gen%20auth%20token.PNG)
 
 - Configure Quality Gate Jenkins Webhook in SonarQube The URL should point to your Jenkins server
 
@@ -325,9 +375,13 @@ Install SonarQube on Ubuntu 20.04 With PostgreSQL as Backend Database
 
 Administration > Configuration > Webhooks > Create
 
+![sonar-webhook](./images.png/sonar%20webhook.PNG)
+
 - Setup SonarQube scanner from Jenkins – Global Tool Configuration
 
 > Manage Jenkins > Global Tool Configuration
+
+![sonar-installation](./images.png/sonarscanner%20installation.PNG)
 
 - Update Jenkins Pipeline to include SonarQube scanning and Quality Gate in php-todo repo.
 
@@ -337,6 +391,8 @@ Administration > Configuration > Webhooks > Create
 }
 
 ##  Add this stage before 'package artifact' .
+
+![stage-add](./images.png/stage%20add.PNG)
 
 - NOTE: The above step will fail because we have not updated `sonar-scanner.properties
 
@@ -353,6 +409,9 @@ cd /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube
 - Install npm dependency on our jenkins server - sudo yum install npm -y
 
 - HINT: To know what exactly to put inside the sonar-scanner.properties file, SonarQube has a configurations page where you can get some directions
+
+![sonar-path](./images.png/sonar%20paths.PNG)
+
 - A brief explanation of what is going on the the stage – set the environment variable for the scannerHome use the same name used when you configured SonarQube Scanner from Jenkins Global Tool Configuration. If you remember, the name was SonarQubeScanner. Then, within the steps use shell to run the scanner from bin directory.
 - To further examine the configuration of the scanner tool on the Jenkins server – navigate into the tools directory
 
@@ -360,10 +419,24 @@ cd /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube
 
 - Our pipeline should look like this
 
+![sonar-path](./images.png/end%20to%20end%20pipeline.PNG)
+
+
+
 ## But we are not completely done yet!
 - The quality gate we just included has no effect. Why? Well, because if you go to the SonarQube UI, you will realise that we just pushed a poor-quality code onto the development environment.
 
 - Navigate to php-todo project in SonarQube
+
+![poor-quality](./images.png/poor%20quality%20code.PNG)
+
+- There are bugs, and there is 0.0% code coverage. (code coverage is a percentage of unit tests added by developers to test functions and objects in the code)
+
+- If you click on php-todo project for further analysis, you will see that there is 6 hours’ worth of technical debt, code smells and security issues in the code.
+
+![further-analysis](./images.png/further%20analysis.PNG)
+
+
 
 ## Let us update our Jenkinsfile to implement this:
 - First, we will include a When condition to run Quality Gate whenever the running branch is either develop, hotfix, release, main, or master
@@ -378,52 +451,9 @@ cd /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube
 - To test, create different branches and push to GitHub. You will realise that only branches other than develop, hotfix, release, main, or master will be able to deploy the code.
 - If everything goes well, you should be able to see something like this:
 
+![skip-dev](./images.png/skip%20dev.PNG)
+
 - Notice that with the current state of the code, it cannot be deployed to Integration environments due to its quality. In the real world, DevOps engineers will push this back to developers to work on the code further, based on SonarQube quality report. Once everything is good with code quality, the pipeline will pass and proceed with sipping the codes further to a higher environment.
 
-##
 
-##
 
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
